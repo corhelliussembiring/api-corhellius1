@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Produk</title>
+</head>
+<body>
+
+<h2>Daftar Produk</h2>
+
+<table border="1" id="produkTable">
+    <thead>
+        <tr>
+            <th>Nama</th>
+            <th>Harga</th>
+        </tr>
+    </thead>
+    <tbody id="produkBody">
+        <!-- Data akan ditambahkan di sini melalui JavaScript -->
+    </tbody>
+</table>
+
+<script>
+    // Ambil data dari API
+    fetch('https://sheet.best/api/sheets/8fb266f4-702d-403c-9927-1d4340fe5e03')
+        .then(response => response.json())
+        .then(data => {
+            // Manipulasi data dan tambahkan ke tabel
+            const tableBody = document.getElementById('produkBody');
+
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                const cellNama = document.createElement('td');
+                const cellHarga = document.createElement('td');
+
+                cellNama.textContent = item.Nama;
+                cellHarga.textContent = item.Harga;
+
+                row.appendChild(cellNama);
+                row.appendChild(cellHarga);
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+
+</body>
+</html>
